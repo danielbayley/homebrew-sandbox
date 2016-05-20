@@ -1,0 +1,33 @@
+name: Homebrew CI
+on:
+  push:
+    branches: main
+    paths: '**.rb'
+  pull_request:
+    paths: '**.rb'
+  schedule:
+  - cron: 0 5 * * *
+
+jobs:
+  homebrew-ci:
+    runs-on: macos-${{ matrix.version }}
+    strategy:
+      matrix:
+        version: [12, 11, 10.15]
+        arch: [x86_64, arm64]
+
+        exclude:
+        - version: 10.15
+          arch: arm64
+
+    steps:
+    - name: HOMEBREW_CHANGE_ARCH_TO_ARM
+      if: matrix.arch == 'arm64'
+      run: echo HOMEBREW_CHANGE_ARCH_TO_ARM=true >> $GITHUB_ENV
+
+    - name: ${{ github.workflow }}
+      run: |
+        env | grep HOMEBREW_ #arch -x86_64 brew
+        sysctl -n machdep.cpu.brand_string
+      env:
+        ACTIONS_STEP_DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}

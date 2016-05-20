@@ -1,0 +1,75 @@
+# https://docs.npmjs.com/cli/configuring-npm/package-json
+$schema: https://json.schemastore.org/package.json
+version: 0.2.13
+name: "@danielbayley/sandbox"
+description: A sandbox repository for testing.
+keywords:
+- sandbox
+- testing
+
+homepage: https://github.com/danielbayley/homebrew-sandbox#readme
+repository: danielbayley/homebrew-sandbox
+bugs: https://github.com/danielbayley/homebrew-sandbox/issues
+
+author:
+  name: Daniel Bayley
+  email: daniel.bayley@me.com
+  url: danielbayley.dev
+
+license: MIT
+funding: https://github.com/sponsors/danielbayley
+
+type: module
+exports: &index ./index.js
+files:
+- *index
+- logo.svg
+directories:
+  build: &publish build
+
+engines:
+  node: ">=22"
+  pnpm: ">=10"
+packageManager: pnpm@10.15.1
+
+devDependencies:
+  np: ^10.2.0
+  publint: &catalog catalog:default
+  semver: ^7.7.2
+  yaml: *catalog
+
+publishConfig:
+  access: public
+  directory: *publish
+config:
+  directory: *publish
+np:
+  contents: *publish
+
+scripts:
+  prepare: yaml --single --json --indent ${TABSIZE:-2} < package.yaml > package.json
+
+  test: node --experimental-test-coverage --test test/*.js
+  watch: pnpm test --watch
+
+  build: >-
+    mkdir -p $npm_package_config_directory &&
+    cp *.md index.js $npm_package_config_directory &&
+    sed -E 's/(color-scheme: *light) *dark/\1/'
+    < logo.svg > $npm_package_config_directory/logo.svg &&
+    sed -E "s|(img *src=\")(logo.svg\")|\1https://unpkg.com/${npm_package_name}@latest/\2|"
+    < README.md > $npm_package_config_directory/README.md
+
+  prerelease: git stash --include-untracked --keep-index && pnpm prepare && pnpm build
+  release: pnpm version --force --no-git-tag-version
+  postrelease: pnpm publish
+
+  prepublishOnly: publint
+  postpublish: git stash pop --quiet
+
+  postversion: cp package.json $npm_package_config_directory
+  version: >-
+    sed -i "" -E "s/^(version: *)$npm_old_version\$/\\1$npm_new_version/" package.yaml &&
+    git commit --message  $npm_new_version package.yaml &&
+    git tag    --annotate $npm_new_version --message v$npm_new_version &&
+    git push   --follow-tags
