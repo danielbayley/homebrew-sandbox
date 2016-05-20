@@ -1,0 +1,75 @@
+name: Homebrew CI
+on:
+  push:
+    branches: main
+    paths: '**.rb'
+    #- .github/workflows/*.y*ml
+    #- '**.rb'
+  pull_request:
+    paths: '**.rb'
+    #- .github/workflows/*.y*ml
+    #- '**.rb'
+  schedule:
+  - cron: 0 5 * * *
+
+jobs:
+  CI:
+    runs-on: macos-${{ matrix.version }}
+    strategy:
+      matrix:
+        #fail-fast: false
+        version: [12, 11, 10.15] #os:
+        #- macos-13    # Ventura
+        # TODO https://github.com/actions/runner-images/issues/2187
+        #- ghcr.io/cirruslabs/macos-ventura-xcode:latest  # ARM64
+        #- macos-12    # Monterey
+        #- ghcr.io/cirruslabs/macos-monterey-xcode:latest # ARM64
+        #- macos-11    # Big Sur
+        #- macos-10.15 # Catalina
+
+        arch: [x86_64, arm64] #[ROSETTA, CHANGE_ARCH_TO_ARM]
+        #-
+        #- CHANGE_ARCH_TO_ARM #: true
+        #experimental: [false]
+
+        #- ghcr.io/homebrew/ubuntu22.04:master
+
+        #include: #[{ version: 10.15, arch: }]
+        #- version: 10.15 # Catalina
+        #  arch: x86_64
+
+        exclude:
+        - version: 10.15
+          arch: arm64
+
+        #- runner: 12-arm64 # Monterey
+        #- runner: 12
+        #- runner: 11-arm64 # Big Sur
+        #- runner: 11
+        #- runner: 10.15    # Catalina
+
+        #include:
+        #- version:
+          #experimental: true
+    #continue-on-error: ${{ matrix.experimental }}
+
+      #HOMEBREW_CHANGE_ARCH_TO_ARM:
+      #HOMEBREW_ROSETTA:
+
+      #GITHUB_ACTIONS_HOMEBREW_SELF_HOSTED:
+
+    steps:
+    - name: HOMEBREW_CHANGE_ARCH_TO_ARM
+      if: ${{ matrix.arch == 'arm64' }}
+      run: echo HOMEBREW_CHANGE_ARCH_TO_ARM=true >> $GITHUB_ENV
+
+    - name: ${{ github.workflow }}
+      #uses: danielbayley/homebrew-pipeline@main
+      #softwareupdate --install-rosetta
+      run: |
+        env | grep HOMEBREW_ #arch -x86_64 brew
+        sysctl -n machdep.cpu.brand_string
+      env:
+        ACTIONS_STEP_DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}
+        #HOMEBREW_${{ matrix.arch}}: true #||'TODO'
+        #HOMEBREW_CHANGE_ARCH_TO_ARM: ${{ matrix.arch }}
