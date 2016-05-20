@@ -1,0 +1,14 @@
+format_version: 4
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: macos
+
+workflows:
+  test:
+    steps:
+    - script:
+        title: ZUnit
+        deps:
+          brew:
+          - name: zunit-zsh/zunit/zunit
+        inputs:
+        - content: zunit ${CI+--fail-fast} hooks/pre-commit
