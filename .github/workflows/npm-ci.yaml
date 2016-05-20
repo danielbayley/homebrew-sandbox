@@ -1,0 +1,15 @@
+name: npm CI
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+jobs:
+  npm-package-ci:
+    uses: danielbayley/npm-package-ci/.github/workflows/ci.yaml@main
+
+  release:
+    needs: [npm-package-ci]
+    runs-on: ubuntu-latest
+    steps:
+    - run: pnpm publish

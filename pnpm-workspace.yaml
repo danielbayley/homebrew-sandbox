@@ -1,0 +1,11 @@
+# https://pnpm.io/pnpm-workspace_yaml
+# https://pnpm.io/cli/run#pnpm-workspaceyaml-settings
+shellEmulator: true
+
+packages:
+- packages/*
+
+# https://pnpm.io/catalogs
+catalog:
+  publint: ^0.3.9
+  yaml: ^2.7.0

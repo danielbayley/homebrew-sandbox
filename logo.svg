@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <style type="text/css">
+    :root {
+      color-scheme: light dark;
+      --light: #1f2328;
+      --dark:  #f0f6fc
+    }
+
+    /* FIXME: https://bugs.webkit.org/show_bug.cgi?id=199134 */
+    _::-webkit-full-page-media, _:future, :root {
+      * { stroke: var(--dark) }
+      g { mix-blend-mode: difference }
+    }
+
+    path {
+      fill: none;
+      stroke: light-dark(var(--light), var(--dark));
+      stroke-width: 2;
+      stroke-linecap:  round;
+      stroke-linejoin: round
+    }
+  </style>
+  <g>
+    <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+    <path d="m3.3 7 8.7 5 8.7-5"/>
+    <path d="M12 22V12"/>
+  </g>
+</svg>

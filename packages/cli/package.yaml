@@ -1,0 +1,14 @@
+# https://docs.npmjs.com/cli/configuring-npm/package-json
+$schema: https://json.schemastore.org/package
+name: utils
+
+private: true
+type: module
+exports: ./index.js
+
+devDependencies:
+  yaml: catalog:default
+
+scripts:
+  prepare: yaml --single --json --indent ${TABSIZE:-2} < package.yaml > package.json
+  test: sandbox --version
