@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  build:
+    macos:
+      xcode: 12.5.1
+    parallelism: 4
+    environment:
+      - GEM_HOME: ../.gem
+      - HOMEBREW_NO_AUTO_UPDATE: 1
+    steps:
+      - checkout
+      - run: brew --version > Gemfile.lock
+      - restore_cache:
+          key: v1-brew-gem-cache-{{ checksum "Gemfile.lock" }}
+
+      - run: brew install zunit-zsh/zunit/zunit
+      - save_cache:
+          key: v1-brew-gem-cache-{{ checksum "Gemfile.lock" }}
+          paths: [../.gem ]
+
+      - run: zunit ${CI+--fail-fast} hooks/pre-commit
