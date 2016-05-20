@@ -1,0 +1,15 @@
+#! /bin/zsh --no-rcs --err-exit
+#! /usr/bin/env zunit
+
+git config --get remote.origin.url | read
+: ${GITHUB_REPOSITORY_OWNER:=$REPLY:h:t}
+
+repo=https://raw.githubusercontent.com/$GITHUB_REPOSITORY_OWNER/homebrew-dotfiles
+
+curl --silent --location $repo/master/.github/hooks/pre-commit | zsh -s $@
+
+#@test 'Example' {
+  #assert "true" same_as "true"
+#}
+
+#zunit ${GITHUB_ACTIONS+--fail-fast}
