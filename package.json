@@ -1,0 +1,105 @@
+{
+  "name": "@danielbayley/homebrew-sandbox",
+  "version": "0.1.0",
+  "description": "A sandbox repository for testing.",
+  "homepage": "https://github.com/danielbayley/sandbox#readme",
+  "repository": "https://github.com/danielbayley/homebrew-sandbox.git",
+  "bugs": "https://github.com/danielbayley/sandbox/issues",
+  "author": "Daniel Bayley <daniel.bayley@me.com> (https://github.com/danielbayley)",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "devDependencies": {
+    "@danielbayley/jest-preset-coffeescript": "^2.0.3",
+    "@semantic-release/apm-config": "^8.0.0",
+    "coffeescript": "^2.5.1",
+    "eslint": "^7.11.0",
+    "eslint-plugin-coffee": "^0.1.13",
+    "eslint-plugin-jest": "^24.1.0",
+    "husky": "^4.3.0",
+    "jest": "^26.5.3",
+    "jest-preset-coffeescript": "^1.3.0",
+    "lint-staged": "^10.4.1",
+    "np": "^6.5.0",
+    "prettier": "helixbass/prettier#prettier-v2.1.0-dev.100-gitpkg",
+    "prettier-plugin-coffeescript": "^0.1.5",
+    "remark-cli": "^9.0.0",
+    "remark-lint": "^8.0.0",
+    "remark-lint-file-extension": "^1.0.5",
+    "remark-lint-heading-style": "^2.0.1",
+    "semantic-release": "^17.2.1",
+    "xo": "^0.34.0"
+  },
+  "publishConfig": {
+    "@danielbayley:registry": "https://npm.pkg.github.com"
+  },
+  "files": [
+    "README.md"
+  ],
+  "release": {
+    "branches": [
+      "master"
+    ],
+    "extends": "@semantic-release/apm-config"
+  },
+  "remarkConfig": {
+    "plugins": [
+      "lint-file-extension",
+      [
+        "lint-heading-style",
+        "setext"
+      ]
+    ],
+    "settings": {
+      "bullet": "*",
+      "fences": true,
+      "preferUnquoted": true
+    }
+  },
+  "prettier": {
+    "extends": [
+      "plugin:coffee/prettier"
+    ],
+    "printWidth": 80,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "comma": "none",
+    "indentChain": true
+  },
+  "eslintConfig": {
+    "parser": "eslint-plugin-coffee",
+    "plugins": [
+      "coffee",
+      "jest"
+    ],
+    "extends": [
+      "plugin:coffee/eslint-recommended",
+      "plugin:jest/recommended"
+    ]
+  },
+  "jest": {
+    "preset": "@danielbayley/jest-preset-coffeescript"
+  },
+  "lint-staged": {
+    "*.coffee": [
+      "xo",
+      "jest --bail --findRelatedTests"
+    ]
+  },
+  "scripts": {
+    "prepare": "coffee --compile --bare --transpile *.coffee",
+    "precommit": "lint-staged",
+    "prepublishOnly": "GITHUB_ACTIONS=true npm test",
+    "prerelease": "git stash --include-untracked",
+    "release": "np --",
+    "postversion": "git stash pop --index",
+    "pretest": "npm run prepare",
+    "test": "xo && npm run test.lint && npm run test.jest --",
+    "test.lint": "npm run test.lint.coffee",
+    "test.lint.coffee": "eslint '**/*.coffee'",
+    "test.jest": "jest ${GITHUB_ACTIONS+--all --ci --no-cache}",
+    "clean": "rm -f *.js & jest --clearCache --config {}"
+  },
+  "dependencies": {}
+}
