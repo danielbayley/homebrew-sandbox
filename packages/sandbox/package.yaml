@@ -1,0 +1,52 @@
+# https://docs.npmjs.com/cli/configuring-npm/package-json
+$schema: https://json.schemastore.org/package
+version: 0.1.4
+name: "@danielbayley/sandbox"
+description: A sandbox repository for testing.
+keywords:
+- sandbox
+- testing
+
+homepage: https://github.com/danielbayley/sandbox#readme
+repository: danielbayley/sandbox
+bugs: https://github.com/danielbayley/sandbox/issues
+
+author:
+  name: Daniel Bayley
+  email: daniel.bayley@me.com
+  url: danielbayley.dev
+
+license: MIT
+funding: https://github.com/sponsors/danielbayley
+
+type: module
+exports: &index ./index.js
+files: [*index]
+directories:
+  build: &build build
+
+engines:
+  node: ">=22"
+  pnpm: ">=9"
+packageManager: pnpm@9.9.0
+
+devDependencies:
+  np: ^10.0.7
+  publint: ^0.2.10
+  replace-in-file: ^8.1.0
+  semver: ^7.6.3
+  yaml: ^2.5.0
+
+publishConfig:
+  access: public
+  directory: *build
+
+scripts:
+  test: node --test test/*.js
+  prepublishOnly: pnpm test && publint
+  version: node scripts/pre-publish.js
+  postversion: pnpm publish
+
+  prerelease: git stash --all --include-untracked --keep-index --quiet
+  release: pnpm version
+  postrelease: git stash pop --index --quiet

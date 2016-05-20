@@ -1,0 +1,31 @@
+# https://docs.npmjs.com/cli/configuring-npm/package-json
+$schema: https://json.schemastore.org/package
+#version: 0.0.0
+name: "@danielbayley/sandbox"
+description: A sandbox repository for testing.
+keywords:
+- sandbox
+- testing
+
+homepage: https://github.com/danielbayley/sandbox#readme
+repository: danielbayley/sandbox
+bugs: https://github.com/danielbayley/sandbox/issues
+
+author:
+  name: Daniel Bayley
+  email: daniel.bayley@me.com
+  url: danielbayley.dev
+
+license: MIT
+funding: https://github.com/sponsors/danielbayley
+
+private: true
+
+engines:
+  pnpm: ">=9"
+packageManager: pnpm@9.9.0
+pnpm:
+  requiredScripts: [test]
+
+devDependencies:
+  yaml: ^2.5.0
