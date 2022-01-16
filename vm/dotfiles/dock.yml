@@ -1,0 +1,10 @@
+apps:
+- Safari
+- Visual Studio Code
+- Atom
+- Terminal
+
+others:
+- path: ~/Downloads
+  view: grid
+  display: folder
