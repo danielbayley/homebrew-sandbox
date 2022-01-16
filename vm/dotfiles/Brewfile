@@ -1,0 +1,34 @@
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+tap "danielbayley/alfred", "https://github.com/danielbayley/homebrew-alfred.git"
+tap "danielbayley/docket", "https://github.com/danielbayley/docket.git"
+tap "danielbayley/dotfiles", "https://github.com/danielbayley/homebrew-dotfiles.git"
+tap "danielbayley/private", "https://github.com/danielbayley/homebrew-private.git"
+tap "mnml-theme/install"
+
+# Cross-platform text editor
+cask "atom"
+# Cross-platform text editor
+cask "atom-beta"
+# Open-source code editor
+cask "visual-studio-code"
+
+# Application launcher and productivity software
+cask "alfred"
+# Dark theme for Alfred
+cask "alfred-theme-dracula"
+
+# Configure sudo and enable Touch ID for commands in Terminal
+cask "sudo"
+# Personal Zsh configuration
+brew "zdotdir", restart_service: true
+# Minimal Z shell prompt theme
+brew "mnml-prompt"
+
+# Tool for managing dock items
+brew "dockutil"
+# Simple wrapper around dockutil to easily configure your Dock
+brew "docket"
+
+# Platform built on V8 to build network applications
+brew "node"
