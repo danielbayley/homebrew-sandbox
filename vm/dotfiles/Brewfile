@@ -1,0 +1,59 @@
+GITHUB_USER, github = GitHub.user.values_at "login", "html_url"
+
+tap "homebrew/cask"
+tap "homebrew/cask-versions"
+tap "#{GITHUB_USER}/alfred"
+tap "#{GITHUB_USER}/docket", "#{github}/docket"
+tap "#{GITHUB_USER}/dotfiles"
+tap "#{GITHUB_USER}/private"
+tap "mnml-theme/install"
+
+# Cross-platform text editor
+cask "atom"
+# Cross-platform text editor
+cask "atom-beta"
+# Open-source code editor
+cask "visual-studio-code"
+
+# Desktop client for GitHub repositories
+cask "github"
+# Git client focusing on productivity
+cask "gitkraken"
+
+# Application launcher and productivity software
+cask "alfred"
+# Dark theme for Alfred
+cask "alfred-theme-dracula"
+
+# Personal Zsh configuration
+brew "zdotdir", restart_service: true
+env, = Dir["#{HOMEBREW_CELLAR}/zdotdir/*/source/*homebrew.env"]
+Utils::Inreplace.inreplace env, /(HOMEBREW_BUNDLE_FILE=).+/, "\\1#{Brewfile.path}" if env
+
+# Minimal Z shell prompt theme
+brew "mnml-prompt"
+
+# Tool for managing dock items
+brew "dockutil"
+# Simple wrapper around dockutil to easily configure your Dock
+brew "docket"
+
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
+# Bash scripts that integrate bat with various command-line tools
+brew "eth-p/software/bat-extras"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
+
+# Platform built on V8 to build network applications
+brew "node"
+
+at_exit do
+  env, = Dir["#{HOMEBREW_CELLAR}/zdotdir/*/source/*homebrew.env"]
+  Utils::Inreplace.inreplace env, /(HOMEBREW_BUNDLE_FILE=).+/, "\\1#{Brewfile.path}" if env
+
+  system "docket #{Brewfile.path.parent}/dock.yml"
+
+  ENV["SUDO_ASKPASS"] = nil
+  system_command "/usr/bin/chsh", args: ["-s", ENV["SHELL"], ENV["USER"]], sudo: true
+end
