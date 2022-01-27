@@ -1,0 +1,8 @@
+com.apple.dock:
+  mineffect: scale
+  minimize-to-application: true
+  autohide: true
+  show-recents: false
+
+Apple Global Domain:
+  _HIHideMenuBar: true
