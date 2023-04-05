@@ -29,7 +29,7 @@
     "remark-lint-file-extension": "^1.0.5",
     "remark-lint-heading-style": "^2.0.1",
     "semantic-release": "^17.2.1",
-    "xo": "^0.34.0"
+    "xo": "^0.54.0"
   },
   "publishConfig": {
     "@danielbayley:registry": "https://npm.pkg.github.com"
