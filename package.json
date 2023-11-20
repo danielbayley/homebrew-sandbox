@@ -14,7 +14,7 @@
     "@danielbayley/jest-preset-coffeescript": "^2.0.3",
     "@semantic-release/apm-config": "^8.0.0",
     "coffeescript": "^2.5.1",
-    "eslint": "^7.11.0",
+    "eslint": "^8.54.0",
     "eslint-plugin-coffee": "^0.1.13",
     "eslint-plugin-jest": "^24.1.0",
     "husky": "^4.3.0",
