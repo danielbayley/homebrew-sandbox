@@ -26,7 +26,7 @@
     "prettier-plugin-coffeescript": "^0.1.5",
     "remark-cli": "^9.0.0",
     "remark-lint": "^8.0.0",
-    "remark-lint-file-extension": "^1.0.5",
+    "remark-lint-file-extension": "^3.0.0",
     "remark-lint-heading-style": "^2.0.1",
     "semantic-release": "^17.2.1",
     "xo": "^0.34.0"
