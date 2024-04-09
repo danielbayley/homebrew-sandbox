@@ -25,7 +25,7 @@
     "prettier": "helixbass/prettier#prettier-v2.1.0-dev.100-gitpkg",
     "prettier-plugin-coffeescript": "^0.1.5",
     "remark-cli": "^9.0.0",
-    "remark-lint": "^8.0.0",
+    "remark-lint": "^10.0.0",
     "remark-lint-file-extension": "^1.0.5",
     "remark-lint-heading-style": "^2.0.1",
     "semantic-release": "^17.2.1",
