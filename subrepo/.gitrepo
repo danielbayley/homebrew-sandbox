@@ -6,7 +6,7 @@
 [subrepo]
 	remote = https://github.com/danielbayley/git-subrepo
 	branch = main
-	commit = 3a281af3c00d30b6805d0c4275fab6a23e752866
-	parent = dfff6a0960a74a9aebb90f50e9a9c5d598f44ca0
+	commit = 2bd3ba69270636ca665967b975826172a356280c
+	parent = 34b1643141eb19285a850e3af585a19de34e7d04
 	method = merge
 	cmdver = 0.4.6
