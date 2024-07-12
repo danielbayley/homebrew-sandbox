@@ -1,0 +1,7 @@
+[module "dca34a19-d775-3c3a-a015-a8d0975cae1e"]
+	conflict = request-pull
+	path = x-module
+	pull = merge subtree
+	pull = squash never
+	ref = if refs/heads/main sync refs/heads/main
+	url = agnostic://gh/792535659
